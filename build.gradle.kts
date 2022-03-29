@@ -21,8 +21,12 @@ dependencies {
     implementation("org.apache.commons:commons-configuration2:2.7")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.1")
     implementation("com.google.guava:guava:31.1-jre")
+    compileOnly("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    testCompileOnly("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
 
     // JDBC drivers
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")
