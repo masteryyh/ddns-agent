@@ -1,6 +1,6 @@
 package win.minaandyyh.ddnsagent.base.model;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * Aliyun DNS configurations
@@ -8,7 +8,9 @@ import lombok.Data;
  * @author masteryyh
  */
 @Data
-public class AliyunConfiguration {
+@NoArgsConstructor
+@AllArgsConstructor
+public class AliyunConfiguration implements ProviderConfiguration {
     private String accessKeyId;
 
     private String accessKeySecret;

@@ -18,7 +18,6 @@ dependencies {
     // Common libraries
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.apache.commons:commons-collections4:4.4")
-    implementation("org.apache.commons:commons-configuration2:2.7")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.1")
@@ -27,11 +26,14 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     testCompileOnly("org.projectlombok:lombok:1.18.22")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
+    implementation("javax.validation:validation-api:2.0.1.Final")
+    implementation("org.hibernate.validator:hibernate-validator:7.0.4.Final")
 
-    // JDBC drivers
+    // JDBC drivers and connection pool
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")
     implementation("org.postgresql:postgresql:42.3.3")
     implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("hikari-cp:hikari-cp:2.14.0")
 
     // Logging
     implementation("org.apache.logging.log4j:log4j-core:2.17.2")

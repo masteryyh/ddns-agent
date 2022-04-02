@@ -1,6 +1,6 @@
 package win.minaandyyh.ddnsagent.base.model;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * Tencent DNSPod configurations
@@ -8,7 +8,9 @@ import lombok.Data;
  * @author masteryyh
  */
 @Data
-public class DNSPodConfiguration {
+@NoArgsConstructor
+@AllArgsConstructor
+public class DNSPodConfiguration implements ProviderConfiguration {
     private String userAgent = "ddns-agent/1.0(yyh991013@163.com)";
 
     private String secretId;

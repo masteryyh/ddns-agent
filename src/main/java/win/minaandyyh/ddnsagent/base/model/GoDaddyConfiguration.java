@@ -1,6 +1,6 @@
 package win.minaandyyh.ddnsagent.base.model;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * GoDaddy configurations
@@ -8,7 +8,9 @@ import lombok.Data;
  * @author masteryyh
  */
 @Data
-public class GoDaddyConfiguration {
+@NoArgsConstructor
+@AllArgsConstructor
+public class GoDaddyConfiguration implements ProviderConfiguration {
     private String apiKey;
 
     private String apiSecret;

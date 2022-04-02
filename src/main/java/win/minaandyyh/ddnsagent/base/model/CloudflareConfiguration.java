@@ -1,6 +1,6 @@
 package win.minaandyyh.ddnsagent.base.model;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  * Cloudflare configurations
@@ -8,7 +8,9 @@ import lombok.Data;
  * @author masteryyh
  */
 @Data
-public class CloudflareConfiguration {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CloudflareConfiguration implements ProviderConfiguration {
     private String authKey;
 
     private String authEmail;
