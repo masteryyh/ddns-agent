@@ -19,11 +19,11 @@ public class FileUtils {
      * @param path File path
      * @return True if this specific path is a valid file
      */
-    public static boolean isValidPath(String path) {
+    public static boolean isValidPath(CharSequence path) {
         if (StringUtils.isEmpty(path)) {
             return false;
         }
 
-        return Files.exists(Paths.get(path));
+        return Files.exists(Paths.get(path.toString()));
     }
 }

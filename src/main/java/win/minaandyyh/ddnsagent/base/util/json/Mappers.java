@@ -11,8 +11,8 @@ import org.apache.commons.lang3.concurrent.LazyInitializer;
  * 
  * @author masteryyh
  */
-public class SingletonObjectMapper {
-    private SingletonObjectMapper() {}
+public class Mappers {
+    private Mappers() {}
 
     private static final ConcurrentInitializer<ObjectMapper> INITIALIZER = new LazyInitializer<>() {
         @Override
@@ -23,7 +23,7 @@ public class SingletonObjectMapper {
         }
     };
 
-    public static ObjectMapper getInstance() {
+    public static ObjectMapper getObjectMapper() {
         ObjectMapper mapper = null;
         try {
             mapper = INITIALIZER.get();

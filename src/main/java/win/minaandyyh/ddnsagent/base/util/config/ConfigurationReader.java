@@ -17,5 +17,5 @@ public interface ConfigurationReader {
      * @return Parsed configuration, or empty {@link Optional} when path is invalid or file does not exist
      * @throws Exception Throws when error occurred reading or parsing file
      */
-    Optional<ApplicationConfiguration> read(String path) throws Exception;
+    Optional<ApplicationConfiguration> read(CharSequence path) throws Exception;
 }
