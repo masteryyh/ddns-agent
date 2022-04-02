@@ -2,6 +2,7 @@ package win.minaandyyh.ddnsagent.base.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -34,6 +35,7 @@ public class ApplicationConfiguration {
     @NotNull(message = "DNS provider name cannot be null or empty")
     private DNSProvider provider;
 
+    @Valid
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "provider")
     @JsonSubTypes({
         @JsonSubTypes.Type(value = AliyunConfiguration.class, name = "ALIYUN"),
