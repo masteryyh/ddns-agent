@@ -28,6 +28,9 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("org.hibernate.validator:hibernate-validator:7.0.4.Final")
+    implementation("org.springframework:spring-context:5.3.18")
+    implementation("org.springframework:spring-core:5.3.18")
+    implementation("org.springframework:spring-beans:5.3.18")
 
     // JDBC drivers and connection pool
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")
