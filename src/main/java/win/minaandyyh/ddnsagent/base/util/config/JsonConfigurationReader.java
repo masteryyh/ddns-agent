@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
 import win.minaandyyh.ddnsagent.base.util.file.FileUtils;
-import win.minaandyyh.ddnsagent.base.util.json.Mappers;
-import win.minaandyyh.ddnsagent.base.util.validate.Validators;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,10 +20,17 @@ import java.util.Set;
  *
  * @author masteryyh
  */
+@Component
 public class JsonConfigurationReader implements ConfigurationReader {
-    private final ObjectMapper mapper = Mappers.getObjectMapper();
+    private final Validator validator;
 
-    private final Validator validator = Validators.getValidator();
+    private final ObjectMapper mapper;
+
+    @Autowired
+    public JsonConfigurationReader(Validator validator, ObjectMapper mapper) {
+        this.validator = validator;
+        this.mapper = mapper;
+    }
 
     @Override
     public Optional<ApplicationConfiguration> read(CharSequence path) throws Exception {
