@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import win.minaandyyh.ddnsagent.base.validators.ValidTimeUnit;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +28,11 @@ public class ApplicationConfiguration {
     @NotEmpty(message = "subdomain cannot be null, empty subdomain should be configured as '@'")
     private String subDomain;
 
+    @NotNull(message = "interval time unit cannot be null")
+    @ValidTimeUnit(anyOf = {
+            TimeUnit.HOURS,
+            TimeUnit.DAYS
+    })
     private TimeUnit intervalUnit;
 
     @Positive(message = "interval must be bigger than 0")
