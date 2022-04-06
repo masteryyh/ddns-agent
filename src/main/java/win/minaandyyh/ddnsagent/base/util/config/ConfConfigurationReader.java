@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author masteryyh
  */
-@Component
+@Component("conf")
 public class ConfConfigurationReader extends AbstractConfigurationReader implements ConfigurationReader {
     private final Map<DNSProvider, ProviderConfiguration> providerConfigurations = new EnumMap<>(DNSProvider.class);
 
