@@ -15,7 +15,7 @@ import java.util.Optional;
  *
  * @author masteryyh
  */
-@Component("json")
+@Component
 public class JsonConfigurationReader extends AbstractConfigurationReader implements ConfigurationReader {
     private final ObjectMapper mapper;
 
