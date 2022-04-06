@@ -36,6 +36,11 @@ public class ConfigurationInitializer {
             return envPath;
         }
 
+        String currentLevel = "config.json";
+        if (Files.exists(Paths.get(currentLevel))) {
+            return currentLevel;
+        }
+
         String defaultPath;
         if (SystemUtils.IS_OS_WINDOWS) {
             defaultPath = Constants.DEFAULT_CONFIG_LOCATION_WINDOWS;
