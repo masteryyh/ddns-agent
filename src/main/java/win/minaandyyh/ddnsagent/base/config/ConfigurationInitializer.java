@@ -5,6 +5,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import win.minaandyyh.ddnsagent.base.constant.Constants;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
@@ -72,6 +73,7 @@ public class ConfigurationInitializer {
     }
 
     @Bean
+    @Conditional(InitializationConditionMatcher.class)
     public ApplicationConfiguration applicationConfiguration() throws Exception {
         String path = getFilePath();
         ConfigurationReader reader = getReader(path);

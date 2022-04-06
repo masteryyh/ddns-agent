@@ -13,4 +13,6 @@ public class Constants {
     public static final String DEFAULT_CONFIG_LOCATION_LINUX = "/etc/ddns/config.json";
 
     public static final String DEFAULT_CONFIG_LOCATION_WINDOWS = "%APPDATA%\\ddns\\config.json";
+
+    public static final String DDNS_TEST = "DDNS_TEST";
 }
