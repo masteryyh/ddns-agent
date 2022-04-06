@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
  *
  * @author masteryyh
  */
-@Service
 @ComponentScan(basePackages = "win.minaandyyh.ddnsagent")
 public class Main {
     public static void main(String[] args) {

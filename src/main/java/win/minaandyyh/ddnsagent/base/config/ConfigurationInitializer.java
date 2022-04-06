@@ -21,11 +21,9 @@ import java.util.Map;
  * @author masteryyh
  */
 @Configuration
-@ComponentScan(basePackages = "win.minaandyyh.ddnsagent")
 public class ConfigurationInitializer {
     private final Map<String, ConfigurationReader> readers;
 
-    @Autowired
     public ConfigurationInitializer(Map<String, ConfigurationReader> readers) {
         this.readers = readers;
     }
@@ -66,7 +64,7 @@ public class ConfigurationInitializer {
         return readers.get(type);
     }
 
-    @Bean
+//    @Bean
     public ApplicationConfiguration applicationConfiguration() throws Exception {
         String path = getFilePath();
         ConfigurationReader reader = getReader(path);

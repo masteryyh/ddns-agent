@@ -16,7 +16,6 @@ import java.util.Set;
  *
  * @author masteryyh
  */
-@Component
 public abstract class AbstractConfigurationReader implements ConfigurationReader {
     private final Validator validator;
 
