@@ -4,7 +4,8 @@ import win.minaandyyh.ddnsagent.base.http.annotations.parameter.Header;
 import win.minaandyyh.ddnsagent.base.http.annotations.parameter.Params;
 import win.minaandyyh.ddnsagent.base.http.annotations.parameter.Payload;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.errors.HttpException;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
 import java.lang.annotation.Annotation;
@@ -13,13 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static win.minaandyyh.ddnsagent.base.http.constants.HttpConstants.*;
+
 /**
  * @author 22454
  */
 public abstract class BaseRequestHandler {
-    protected static final String HEADER = "header";
-    protected static final String PARAMS = "params";
-    protected static final String PAYLOAD = "payload";
     protected RequestClient requestClient;
 
     public BaseRequestHandler(RequestClient requestClient) {
@@ -93,7 +93,7 @@ public abstract class BaseRequestHandler {
                 if (Objects.isNull(arg)) {
                     continue;
                 } else if (!(arg instanceof Map)) {
-                    throw new RuntimeException("Only parameters of type < Map > can be marked as < Header >");
+                    throw HttpException.of("Only parameters of type < Map > can be marked as < Header >");
                 }
 
                 if (annotation instanceof Header) {

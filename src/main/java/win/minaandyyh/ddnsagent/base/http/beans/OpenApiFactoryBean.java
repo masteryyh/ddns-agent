@@ -5,7 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 import win.minaandyyh.ddnsagent.base.http.proxy.OpenApiProxyHandler;
 
 import java.lang.reflect.Proxy;

@@ -3,7 +3,7 @@ package win.minaandyyh.ddnsagent.base.http.proxy;
 
 import win.minaandyyh.ddnsagent.base.http.annotations.api.Api;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 import win.minaandyyh.ddnsagent.base.http.proxy.handlers.RequestHandlerFactory;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 

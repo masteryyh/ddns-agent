@@ -2,12 +2,10 @@ package win.minaandyyh.ddnsagent.base.http.proxy.handlers;
 
 import lombok.extern.slf4j.Slf4j;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
-import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Objects;
 
 
 /**

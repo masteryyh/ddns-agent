@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,8 @@ import java.util.Map;
 /**
  * @author 22454
  */
-@Order(0)
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SpringContextUtil implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 

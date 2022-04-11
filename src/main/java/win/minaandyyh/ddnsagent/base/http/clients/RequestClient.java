@@ -1,9 +1,10 @@
-package win.minaandyyh.ddnsagent.base.http.interfaces;
+package win.minaandyyh.ddnsagent.base.http.clients;
 
+import org.apache.commons.collections4.MapUtils;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
+import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author 22454
@@ -17,7 +18,7 @@ public abstract class RequestClient {
      * @return resp
      */
     public final ApiResponse get(String url) {
-        return this.get(url, null);
+        return this.get(url, Collections.emptyMap());
     }
 
     /**
@@ -29,7 +30,7 @@ public abstract class RequestClient {
      */
     public final ApiResponse get(String url,
                                  Map<String, Object> params) {
-        return this.get(url, null, params);
+        return this.get(url, Collections.emptyMap(), params);
     }
 
     /**
@@ -43,7 +44,7 @@ public abstract class RequestClient {
     public final ApiResponse get(String url,
                                  Map<String, String> header,
                                  Map<String, Object> params) {
-        return this.get(url, header, params, null);
+        return this.get(url, header, params, Collections.emptyMap());
     }
 
 
@@ -69,7 +70,7 @@ public abstract class RequestClient {
      * @return resp
      */
     public final ApiResponse post(String url) {
-        return this.post(url, null);
+        return this.post(url, Collections.emptyMap());
     }
 
     /**
@@ -81,7 +82,7 @@ public abstract class RequestClient {
      */
     public final ApiResponse post(String url,
                                   Map<String, String> header) {
-        return this.post(url, header, null);
+        return this.post(url, header, Collections.emptyMap());
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class RequestClient {
     public final ApiResponse post(String url,
                                   Map<String, String> header,
                                   Map<String, Object> params) {
-        return this.post(url, header, params, null);
+        return this.post(url, header, params, Collections.emptyMap());
     }
 
     /**
@@ -119,7 +120,7 @@ public abstract class RequestClient {
      * @return resp
      */
     public final ApiResponse put(String url) {
-        return this.put(url, null);
+        return this.put(url, Collections.emptyMap());
     }
 
     /**
@@ -131,7 +132,7 @@ public abstract class RequestClient {
      */
     public final ApiResponse put(String url,
                                  Map<String, String> header) {
-        return this.put(url, header, null);
+        return this.put(url, header, Collections.emptyMap());
     }
 
     /**
@@ -145,7 +146,7 @@ public abstract class RequestClient {
     public final ApiResponse put(String url,
                                  Map<String, String> header,
                                  Map<String, Object> params) {
-        return this.put(url, header, params, null);
+        return this.put(url, header, params, Collections.emptyMap());
     }
 
     /**
@@ -169,7 +170,7 @@ public abstract class RequestClient {
      * @return resp
      */
     public final ApiResponse delete(String url) {
-        return this.delete(url, null);
+        return this.delete(url, Collections.emptyMap());
     }
 
 
@@ -182,7 +183,7 @@ public abstract class RequestClient {
      */
     public final ApiResponse delete(String url,
                                     Map<String, String> header) {
-        return this.delete(url, header, null);
+        return this.delete(url, header, Collections.emptyMap());
     }
 
     /**
@@ -196,7 +197,7 @@ public abstract class RequestClient {
     public final ApiResponse delete(String url,
                                     Map<String, String> header,
                                     Map<String, Object> params) {
-        return this.delete(url, header, params, null);
+        return this.delete(url, header, params, Collections.emptyMap());
     }
 
     /**
@@ -214,7 +215,7 @@ public abstract class RequestClient {
                                        Map<String, Object> payload);
 
     protected String buildQueryParams(Map<String, Object> params) {
-        if (Objects.isNull(params) || params.size() <= 0) {
+        if (MapUtils.isEmpty(params)) {
             return "";
         }
         final StringBuilder urlBuilder = new StringBuilder();
@@ -223,13 +224,4 @@ public abstract class RequestClient {
         return urlBuilder.deleteCharAt(length - 1).toString();
     }
 
-    /**
-     * 判断 map 是否为空
-     *
-     * @param map map
-     * @return res
-     */
-    protected <K, V> boolean emptyMap(Map<K, V> map) {
-        return Objects.isNull(map) || map.size() == 0;
-    }
 }

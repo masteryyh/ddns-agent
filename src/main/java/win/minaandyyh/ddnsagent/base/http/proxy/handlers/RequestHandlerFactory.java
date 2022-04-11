@@ -1,19 +1,18 @@
 package win.minaandyyh.ddnsagent.base.http.proxy.handlers;
 
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 /**
  * @author 22454
  */
 public class RequestHandlerFactory {
-    private final Map<RequestType, BaseRequestHandler> requestHandlerMap;
+    private final EnumMap<RequestType, BaseRequestHandler> requestHandlerMap;
 
     public RequestHandlerFactory(RequestClient requestClient) {
-        requestHandlerMap = new HashMap<>();
+        requestHandlerMap = new EnumMap<>(RequestType.class);
         this.init(requestClient);
     }
 

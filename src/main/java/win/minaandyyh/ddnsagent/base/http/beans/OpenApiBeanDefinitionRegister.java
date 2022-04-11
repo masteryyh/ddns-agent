@@ -22,7 +22,6 @@ import java.util.Map;
 /**
  * @author 22454
  */
-@Order(99)
 @Component
 public class OpenApiBeanDefinitionRegister implements ImportBeanDefinitionRegistrar {
 

@@ -1,10 +1,11 @@
-package win.minaandyyh.ddnsagent.base.http.interfaces.impl;
+package win.minaandyyh.ddnsagent.base.http.clients.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
-import win.minaandyyh.ddnsagent.base.http.interfaces.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class OkHttpRequestClient extends RequestClient {
                            Map<String, String> header,
                            Map<String, Object> params,
                            Map<String, Object> payload) {
-        String queryParams = emptyMap(params) ? "" : buildQueryParams(params);
+        String queryParams = MapUtils.isEmpty(params) ? "" : buildQueryParams(params);
         if (queryParams.trim().length() > 0) {
             url = url.concat("?").concat(queryParams);
         }
@@ -39,7 +40,7 @@ public class OkHttpRequestClient extends RequestClient {
                 .url(url)
                 .get();
 
-        if (!emptyMap(header)) {
+        if (!MapUtils.isEmpty(header)) {
             Headers headers = Headers.of(header);
             builder.headers(headers);
         }
@@ -55,7 +56,7 @@ public class OkHttpRequestClient extends RequestClient {
                             Map<String, Object> payload) {
 
 
-        String queryParams = emptyMap(params) ? "" : buildQueryParams(params);
+        String queryParams = MapUtils.isEmpty(params) ? "" : buildQueryParams(params);
         if (queryParams.trim().length() > 0) {
             url = url.concat("?").concat(queryParams);
         }
@@ -75,7 +76,7 @@ public class OkHttpRequestClient extends RequestClient {
                 .url(url)
                 .post(requestBody);
 
-        if (!emptyMap(header)) {
+        if (MapUtils.isNotEmpty(header)) {
             Headers headers = Headers.of(header);
             builder.headers(headers);
         }
