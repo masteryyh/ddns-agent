@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.model.*;
 
+import javax.annotation.PostConstruct;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -23,6 +24,10 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
     @Autowired
     public ConfConfigurationReader(Validator validator) {
         super(validator);
+    }
+
+    @PostConstruct
+    public void initializeConfigurations() {
         providerConfigurations.put(DNSProvider.ALIYUN, new AliyunConfiguration());
         providerConfigurations.put(DNSProvider.CLOUDFLARE, new CloudflareConfiguration());
         providerConfigurations.put(DNSProvider.DNSPOD, new DNSPodConfiguration());
