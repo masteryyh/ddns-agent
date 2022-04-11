@@ -48,6 +48,9 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:2.17.2")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.2")
 
+    // hutool
+    implementation("cn.hutool:hutool-all:5.8.0.M2")
+
     // Test framework
     testImplementation("org.testng:testng:7.5")
     testImplementation("org.springframework:spring-test:5.3.18")
