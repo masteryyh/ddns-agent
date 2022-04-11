@@ -54,23 +54,32 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
         }
 
         if (StringUtils.equals(key, "ddns.interval-unit") && Objects.isNull(configuration.getIntervalUnit())) {
-            if (StringUtils.equalsAny(value, "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS")) {
+            if (!StringUtils.equalsAny(value, "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS")) {
                 throw new IllegalArgumentException("Invalid time unit " + value);
             }
             configuration.setIntervalUnit(TimeUnit.valueOf(value));
         }
 
         if (StringUtils.equals(key, "ddns.interval") && StringUtils.isNumeric(value)) {
-            configuration.setInterval(Long.getLong(value));
+            configuration.setInterval(Long.parseLong(value));
         }
 
         if (StringUtils.equals(key, "ddns.provider") && Objects.isNull(configuration.getProvider())) {
-            if (StringUtils.equalsAny(value, "ALIYUN", "CLOUDFLARE", "GODADDY", "DNSPOD")) {
+            if (!StringUtils.equalsAny(value, "ALIYUN", "CLOUDFLARE", "GODADDY", "DNSPOD")) {
                 return;
             }
             DNSProvider provider = DNSProvider.valueOf(value);
             configuration.setProvider(provider);
             configuration.setProviderSpecific(providerConfigurations.get(provider));
+        }
+
+        if (StringUtils.startsWith(key, "ddns.provider-specific") && Objects.nonNull(configuration.getProvider())) {
+            if (Objects.isNull(configuration.getProviderSpecific())) {
+                throw new IllegalStateException("DNS provider not defined.");
+            }
+            ProviderConfiguration providerSpecific = configuration.getProviderSpecific();
+            providerSpecific.setValue(key, value);
+            configuration.setProviderSpecific(providerSpecific);
         }
     }
 
