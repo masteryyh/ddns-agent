@@ -94,8 +94,8 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
         }
 
         String[] parts = line.split("=");
-        String key = parts[0];
-        String value = parts[1];
+        String key = parts[0].trim();
+        String value = parts[1].trim();
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
