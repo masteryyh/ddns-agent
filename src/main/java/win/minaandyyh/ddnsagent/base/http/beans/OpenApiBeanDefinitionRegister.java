@@ -9,7 +9,6 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.http.annotations.api.EnableOpenApi;

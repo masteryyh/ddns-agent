@@ -4,6 +4,7 @@ package win.minaandyyh.ddnsagent.base.http.proxy;
 import win.minaandyyh.ddnsagent.base.http.annotations.api.Api;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
 import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.errors.HttpException;
 import win.minaandyyh.ddnsagent.base.http.proxy.handlers.RequestHandlerFactory;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
@@ -26,7 +27,7 @@ public class OpenApiProxyHandler implements InvocationHandler {
             return handle(method, args);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(String.format("RequestClient invoke < %s > failed.", method.getName()));
+            throw HttpException.of(String.format("RequestClient invoke < %s > failed.", method.getName()));
         }
     }
 

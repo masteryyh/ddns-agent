@@ -22,7 +22,7 @@ import static win.minaandyyh.ddnsagent.base.http.constants.HttpConstants.*;
 public abstract class BaseRequestHandler {
     protected RequestClient requestClient;
 
-    public BaseRequestHandler(RequestClient requestClient) {
+    protected BaseRequestHandler(RequestClient requestClient) {
         this.requestClient = requestClient;
     }
 
