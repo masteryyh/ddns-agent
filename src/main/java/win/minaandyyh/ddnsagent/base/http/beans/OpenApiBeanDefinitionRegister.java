@@ -18,6 +18,7 @@ import win.minaandyyh.ddnsagent.base.http.annotations.api.OpenApi;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author 22454
@@ -36,7 +37,7 @@ public class OpenApiBeanDefinitionRegister implements ImportBeanDefinitionRegist
             return;
         }
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableOpenApi.class.getName()));
-        if (annotationAttributes == null) {
+        if (Objects.isNull(annotationAttributes)) {
             throw new RuntimeException("@EnableOpenApi was never config");
         }
         String[] baseScanPackages = annotationAttributes.getStringArray("baseScanPackages");
@@ -49,7 +50,7 @@ public class OpenApiBeanDefinitionRegister implements ImportBeanDefinitionRegist
                     .getAnnotationMetadata()
                     .getAnnotationAttributes(OpenApi.class.getName());
             // doesn't mark with @OpenApi
-            if (openApiAnnotationAttributes == null) {
+            if (Objects.isNull(openApiAnnotationAttributes)) {
                 return false;
             }
 
