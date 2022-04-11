@@ -56,7 +56,7 @@ public class ConfigurationInitializer {
     }
 
     private ConfigurationReader getReader(String path) {
-        if (StringUtils.isEmpty(path)) {
+        if (StringUtils.isBlank(path)) {
             throw new IllegalArgumentException("File path is empty.");
         }
 
