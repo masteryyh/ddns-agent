@@ -3,8 +3,6 @@ package win.minaandyyh.ddnsagent.base.util.config;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
 
 import java.util.Iterator;
@@ -16,11 +14,9 @@ import java.util.Set;
  *
  * @author masteryyh
  */
-@Component
 public abstract class AbstractConfigurationReader implements ConfigurationReader {
     private final Validator validator;
 
-    @Autowired
     protected AbstractConfigurationReader(Validator validator) {
         this.validator = validator;
     }

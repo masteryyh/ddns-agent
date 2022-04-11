@@ -51,7 +51,7 @@ public class JsonConfigurationReaderTest extends AbstractTestNGSpringContextTest
         testConfiguration1.setProvider(DNSProvider.CLOUDFLARE);
 
         CloudflareConfiguration cloudflare = new CloudflareConfiguration();
-        cloudflare.setAuthKey("test-key");
+        cloudflare.setAuthKey("oiaudaiwf932923fawieoiaudaiwf932923fa");
         cloudflare.setAuthEmail("test123@abc.com");
         testConfiguration1.setProviderSpecific(cloudflare);
 
