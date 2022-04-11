@@ -44,8 +44,8 @@ public class ConfConfigurationReaderTest extends AbstractTestNGSpringContextTest
                 .append("ddns.interval-unit=HOURS").append("\n")
                 .append("ddns.interval=4").append("\n")
                 .append("ddns.provider=ALIYUN").append("\n")
-                .append("ddns.provider-specific.access-key-id=aBcD123EfGUAs9dnB2fFg1DD").append("\n")
-                .append("ddns.provider-specific.access-key-secret=aBcD123EfGUAs9dnB2fFg1DDsh38fh").append("\n");
+                .append("ddns.provider-specific.aliyun.access-key-id=aBcD123EfGUAs9dnB2fFg1DD").append("\n")
+                .append("ddns.provider-specific.aliyun.access-key-secret=aBcD123EfGUAs9dnB2fFg1DDsh38fh").append("\n");
         Files.writeString(Paths.get("config.conf"), builder1);
 
         ApplicationConfiguration configuration1 = new ApplicationConfiguration();

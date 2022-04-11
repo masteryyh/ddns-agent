@@ -31,11 +31,11 @@ public class DNSPodConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.secret-id")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.dnspod.secret-id")) {
             this.secretId = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.secret-key")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.dnspod.secret-key")) {
             this.secretKey = value;
         }
     }

@@ -29,11 +29,11 @@ public class GoDaddyConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.api-key")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.godaddy.api-key")) {
             this.apiKey = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.api-secret")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.godaddy.api-secret")) {
             this.apiSecret = value;
         }
     }

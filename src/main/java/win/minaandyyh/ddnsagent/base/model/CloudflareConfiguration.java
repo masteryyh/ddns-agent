@@ -30,11 +30,11 @@ public class CloudflareConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.auth-key")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.cloudflare.auth-key")) {
             this.authKey = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.auth-email")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.cloudflare.auth-email")) {
             this.authEmail = value;
         }
     }

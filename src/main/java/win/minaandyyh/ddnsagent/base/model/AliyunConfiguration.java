@@ -29,11 +29,11 @@ public class AliyunConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.access-key-id")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.aliyun.access-key-id")) {
             this.accessKeyId = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.access-key-secret")) {
+        if (StringUtils.equals(key, "ddns.provider-specific.aliyun.access-key-secret")) {
             this.accessKeySecret = value;
         }
     }
