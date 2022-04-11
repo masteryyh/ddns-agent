@@ -13,6 +13,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.http.annotations.api.EnableOpenApi;
 import win.minaandyyh.ddnsagent.base.http.annotations.api.OpenApi;
+import win.minaandyyh.ddnsagent.base.http.errors.HttpException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class OpenApiBeanDefinitionRegister implements ImportBeanDefinitionRegist
         }
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableOpenApi.class.getName()));
         if (Objects.isNull(annotationAttributes)) {
-            throw new RuntimeException("@EnableOpenApi was never config");
+            throw HttpException.of("@EnableOpenApi was never config");
         }
         String[] baseScanPackages = annotationAttributes.getStringArray("baseScanPackages");
         // openApiScanner
