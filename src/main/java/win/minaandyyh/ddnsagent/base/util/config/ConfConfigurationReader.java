@@ -35,7 +35,7 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
     }
 
     private boolean isLineInvalid(String line) {
-        return StringUtils.isEmpty(line) || line.split("=").length != 2;
+        return StringUtils.isBlank(line) || line.split("=").length != 2;
     }
 
     private void readBasicConfig(String line, ApplicationConfiguration configuration) {
@@ -46,15 +46,15 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
         String[] parts = line.split("=");
         String key = parts[0];
         String value = parts[1];
-        if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value)) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.domain") && StringUtils.isEmpty(configuration.getDomain())) {
+        if (StringUtils.equals(key, "ddns.domain") && StringUtils.isBlank(configuration.getDomain())) {
             configuration.setDomain(value);
         }
 
-        if (StringUtils.equals(key, "ddns.sub-domain") && StringUtils.isEmpty(configuration.getSubDomain())) {
+        if (StringUtils.equals(key, "ddns.sub-domain") && StringUtils.isBlank(configuration.getSubDomain())) {
             configuration.setSubDomain(value);
         }
 
@@ -96,51 +96,51 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
         String[] parts = line.split("=");
         String key = parts[0];
         String value = parts[1];
-        if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value)) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
 
         switch (configuration.getProvider()) {
             case ALIYUN -> {
                 AliyunConfiguration aliyunConfig = (AliyunConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.aliyun.access-key-id") && StringUtils.isEmpty(aliyunConfig.getAccessKeyId())) {
+                if (StringUtils.equals(key, "ddns.aliyun.access-key-id") && StringUtils.isBlank(aliyunConfig.getAccessKeyId())) {
                     aliyunConfig.setAccessKeyId(value);
                 }
 
-                if (StringUtils.equals(key, "ddns.aliyun.access-key-secret") && StringUtils.isEmpty(aliyunConfig.getAccessKeySecret())) {
+                if (StringUtils.equals(key, "ddns.aliyun.access-key-secret") && StringUtils.isBlank(aliyunConfig.getAccessKeySecret())) {
                     aliyunConfig.setAccessKeySecret(value);
                 }
                 configuration.setProviderSpecific(aliyunConfig);
             }
             case CLOUDFLARE -> {
                 CloudflareConfiguration cloudflareConfig = (CloudflareConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.cloudflare.auth-key") && StringUtils.isEmpty(cloudflareConfig.getAuthKey())) {
+                if (StringUtils.equals(key, "ddns.cloudflare.auth-key") && StringUtils.isBlank(cloudflareConfig.getAuthKey())) {
                     cloudflareConfig.setAuthKey(value);
                 }
 
-                if (StringUtils.equals(key, "ddns.cloudflare.auth-email") && StringUtils.isEmpty(cloudflareConfig.getAuthEmail())) {
+                if (StringUtils.equals(key, "ddns.cloudflare.auth-email") && StringUtils.isBlank(cloudflareConfig.getAuthEmail())) {
                     cloudflareConfig.setAuthEmail(value);
                 }
                 configuration.setProviderSpecific(cloudflareConfig);
             }
             case DNSPOD -> {
                 DNSPodConfiguration dnspodConfig = (DNSPodConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.dnspod.secret-id") && StringUtils.isEmpty(dnspodConfig.getSecretId())) {
+                if (StringUtils.equals(key, "ddns.dnspod.secret-id") && StringUtils.isBlank(dnspodConfig.getSecretId())) {
                     dnspodConfig.setSecretId(value);
                 }
 
-                if (StringUtils.equals(key, "ddns.dnspod.secret-key") && StringUtils.isEmpty(dnspodConfig.getSecretKey())) {
+                if (StringUtils.equals(key, "ddns.dnspod.secret-key") && StringUtils.isBlank(dnspodConfig.getSecretKey())) {
                     dnspodConfig.setSecretKey(value);
                 }
                 configuration.setProviderSpecific(dnspodConfig);
             }
             case GODADDY -> {
                 GoDaddyConfiguration goDaddyConfig = (GoDaddyConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.godaddy.api-key") && StringUtils.isEmpty(goDaddyConfig.getApiKey())) {
+                if (StringUtils.equals(key, "ddns.godaddy.api-key") && StringUtils.isBlank(goDaddyConfig.getApiKey())) {
                     goDaddyConfig.setApiKey(value);
                 }
 
-                if (StringUtils.equals(key, "ddns.godaddy.api-secret") && StringUtils.isEmpty(goDaddyConfig.getApiSecret())) {
+                if (StringUtils.equals(key, "ddns.godaddy.api-secret") && StringUtils.isBlank(goDaddyConfig.getApiSecret())) {
                     goDaddyConfig.setApiSecret(value);
                 }
                 configuration.setProviderSpecific(goDaddyConfig);
@@ -151,7 +151,7 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
     @Override
     public Optional<ApplicationConfiguration> read(CharSequence path) throws Exception {
         String config = Files.readString(Paths.get(path.toString()));
-        if (StringUtils.isEmpty(config)) {
+        if (StringUtils.isBlank(config)) {
             throw new IllegalArgumentException("Empty configuration.");
         }
 

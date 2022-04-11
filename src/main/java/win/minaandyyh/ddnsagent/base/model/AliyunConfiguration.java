@@ -25,7 +25,7 @@ public class AliyunConfiguration implements ProviderConfiguration {
 
     @Override
     public void setValue(String key, String value) {
-        if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value)) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
 
