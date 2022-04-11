@@ -1,9 +1,10 @@
 package win.minaandyyh.ddnsagent.base.model;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 
 /**
  * Tencent DNSPod configurations
@@ -16,12 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 public class DNSPodConfiguration implements ProviderConfiguration {
     private String userAgent = "ddns-agent/1.0(yyh991013@163.com)";
 
-    @NotEmpty(message = "missing secretId or it's empty")
-    @Pattern(regexp = "^AKID[A-Za-z\\d]{32}$", message = "DNSPod secretId must meet regex: ^AKID[A-Za-z\\d]{32}$")
+    @NotBlank(message = "missing secretId or it's empty")
+    @Pattern(regexp = PatternConstants.DNSPOD_SECRET_ID, message = "DNSPod secretId must meet regex: ^AKID[A-Za-z\\d]{32}$")
     private String secretId;
 
-    @NotEmpty(message = "missing secretKey or it's empty")
-    @Pattern(regexp = "^[A-Za-z\\d]{32}$", message = "DNSPod secretKey must meet regex: ^[A-Za-z\\d]{32}$")
+    @NotBlank(message = "missing secretKey or it's empty")
+    @Pattern(regexp = PatternConstants.DNSPOD_SECRET_KEY, message = "DNSPod secretKey must meet regex: ^[A-Za-z\\d]{32}$")
     private String secretKey;
 
     @Override
