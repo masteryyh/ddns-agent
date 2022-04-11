@@ -3,7 +3,7 @@ package win.minaandyyh.ddnsagent.base.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,10 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplicationConfiguration {
-    @NotEmpty(message = "domain cannot be null.")
+    @NotBlank(message = "domain cannot be null.")
     private String domain;
 
-    @NotEmpty(message = "subdomain cannot be null, empty subdomain should be configured as '@'")
+    @NotBlank(message = "subdomain cannot be null, empty subdomain should be configured as '@'")
     private String subDomain;
 
     @NotNull(message = "interval time unit cannot be null")
