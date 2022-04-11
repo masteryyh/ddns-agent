@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import win.minaandyyh.ddnsagent.base.constant.ConfigurationConstants;
 import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 
 /**
@@ -15,8 +16,6 @@ import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DNSPodConfiguration implements ProviderConfiguration {
-    private String userAgent = "ddns-agent/1.0(yyh991013@163.com)";
-
     @NotBlank(message = "missing secretId or it's empty")
     @Pattern(regexp = PatternConstants.DNSPOD_SECRET_ID, message = "DNSPod secretId must meet regex: ^AKID[A-Za-z\\d]{32}$")
     private String secretId;
@@ -31,11 +30,11 @@ public class DNSPodConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.dnspod.secret-id")) {
+        if (StringUtils.equals(key, ConfigurationConstants.DNSPOD_SECRET_ID)) {
             this.secretId = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.dnspod.secret-key")) {
+        if (StringUtils.equals(key, ConfigurationConstants.DNSPOD_SECRET_KEY)) {
             this.secretKey = value;
         }
     }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import win.minaandyyh.ddnsagent.base.constant.ConfigurationConstants;
 import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 
 /**
@@ -29,11 +30,11 @@ public class GoDaddyConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.godaddy.api-key")) {
+        if (StringUtils.equals(key, ConfigurationConstants.GO_DADDY_API_KEY)) {
             this.apiKey = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.godaddy.api-secret")) {
+        if (StringUtils.equals(key, ConfigurationConstants.GO_DADDY_API_SECRET)) {
             this.apiSecret = value;
         }
     }

@@ -4,6 +4,8 @@ import jakarta.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import win.minaandyyh.ddnsagent.base.constant.ConfigurationConstants;
+import win.minaandyyh.ddnsagent.base.constant.Constants;
 import win.minaandyyh.ddnsagent.base.model.*;
 
 import javax.annotation.PostConstruct;
@@ -35,7 +37,7 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
     }
 
     private boolean isLineInvalid(String line) {
-        return StringUtils.isBlank(line) || line.split("=").length != 2;
+        return StringUtils.isBlank(line) || line.split(Constants.EQUAL).length != 2;
     }
 
     private void readBasicConfig(String line, ApplicationConfiguration configuration) {
@@ -43,34 +45,34 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
             return;
         }
 
-        String[] parts = line.split("=");
+        String[] parts = line.split(Constants.EQUAL);
         String key = parts[0];
         String value = parts[1];
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.domain") && StringUtils.isBlank(configuration.getDomain())) {
+        if (StringUtils.equals(key, ConfigurationConstants.DOMAIN) && StringUtils.isBlank(configuration.getDomain())) {
             configuration.setDomain(value);
         }
 
-        if (StringUtils.equals(key, "ddns.sub-domain") && StringUtils.isBlank(configuration.getSubDomain())) {
+        if (StringUtils.equals(key, ConfigurationConstants.SUBDOMAIN) && StringUtils.isBlank(configuration.getSubDomain())) {
             configuration.setSubDomain(value);
         }
 
-        if (StringUtils.equals(key, "ddns.interval-unit") && Objects.isNull(configuration.getIntervalUnit())) {
-            if (!StringUtils.equalsAny(value, "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS")) {
+        if (StringUtils.equals(key, ConfigurationConstants.INTERVAL_UNIT) && Objects.isNull(configuration.getIntervalUnit())) {
+            if (!StringUtils.equalsAny(value, ConfigurationConstants.TIME_UNITS.toArray(new String[0]))) {
                 throw new IllegalArgumentException("Invalid time unit " + value);
             }
             configuration.setIntervalUnit(TimeUnit.valueOf(value));
         }
 
-        if (StringUtils.equals(key, "ddns.interval") && StringUtils.isNumeric(value)) {
+        if (StringUtils.equals(key, ConfigurationConstants.INTERVAL) && StringUtils.isNumeric(value)) {
             configuration.setInterval(Long.parseLong(value));
         }
 
-        if (StringUtils.equals(key, "ddns.provider") && Objects.isNull(configuration.getProvider())) {
-            if (!StringUtils.equalsAny(value, "ALIYUN", "CLOUDFLARE", "GODADDY", "DNSPOD")) {
+        if (StringUtils.equals(key, ConfigurationConstants.PROVIDER) && Objects.isNull(configuration.getProvider())) {
+            if (!StringUtils.equalsAny(value, ConfigurationConstants.VALID_PROVIDERS.toArray(new String[0]))) {
                 return;
             }
             DNSProvider provider = DNSProvider.valueOf(value);
@@ -78,73 +80,13 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
             configuration.setProviderSpecific(providerConfigurations.get(provider));
         }
 
-        if (StringUtils.startsWith(key, "ddns.provider-specific") && Objects.nonNull(configuration.getProvider())) {
+        if (StringUtils.startsWith(key, ConfigurationConstants.PROVIDER_SPECIFIC) && Objects.nonNull(configuration.getProvider())) {
             if (Objects.isNull(configuration.getProviderSpecific())) {
                 throw new IllegalStateException("DNS provider not defined.");
             }
             ProviderConfiguration providerSpecific = configuration.getProviderSpecific();
             providerSpecific.setValue(key, value);
             configuration.setProviderSpecific(providerSpecific);
-        }
-    }
-
-    private void readSpecificConfig(String line, ApplicationConfiguration configuration) {
-        if (Objects.isNull(configuration) || Objects.isNull(configuration.getProvider()) || Objects.isNull(configuration.getProviderSpecific())) {
-            return;
-        }
-
-        String[] parts = line.split("=");
-        String key = parts[0].trim();
-        String value = parts[1].trim();
-        if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
-            return;
-        }
-
-        switch (configuration.getProvider()) {
-            case ALIYUN -> {
-                AliyunConfiguration aliyunConfig = (AliyunConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.aliyun.access-key-id") && StringUtils.isBlank(aliyunConfig.getAccessKeyId())) {
-                    aliyunConfig.setAccessKeyId(value);
-                }
-
-                if (StringUtils.equals(key, "ddns.aliyun.access-key-secret") && StringUtils.isBlank(aliyunConfig.getAccessKeySecret())) {
-                    aliyunConfig.setAccessKeySecret(value);
-                }
-                configuration.setProviderSpecific(aliyunConfig);
-            }
-            case CLOUDFLARE -> {
-                CloudflareConfiguration cloudflareConfig = (CloudflareConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.cloudflare.auth-key") && StringUtils.isBlank(cloudflareConfig.getAuthKey())) {
-                    cloudflareConfig.setAuthKey(value);
-                }
-
-                if (StringUtils.equals(key, "ddns.cloudflare.auth-email") && StringUtils.isBlank(cloudflareConfig.getAuthEmail())) {
-                    cloudflareConfig.setAuthEmail(value);
-                }
-                configuration.setProviderSpecific(cloudflareConfig);
-            }
-            case DNSPOD -> {
-                DNSPodConfiguration dnspodConfig = (DNSPodConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.dnspod.secret-id") && StringUtils.isBlank(dnspodConfig.getSecretId())) {
-                    dnspodConfig.setSecretId(value);
-                }
-
-                if (StringUtils.equals(key, "ddns.dnspod.secret-key") && StringUtils.isBlank(dnspodConfig.getSecretKey())) {
-                    dnspodConfig.setSecretKey(value);
-                }
-                configuration.setProviderSpecific(dnspodConfig);
-            }
-            case GODADDY -> {
-                GoDaddyConfiguration goDaddyConfig = (GoDaddyConfiguration) configuration.getProviderSpecific();
-                if (StringUtils.equals(key, "ddns.godaddy.api-key") && StringUtils.isBlank(goDaddyConfig.getApiKey())) {
-                    goDaddyConfig.setApiKey(value);
-                }
-
-                if (StringUtils.equals(key, "ddns.godaddy.api-secret") && StringUtils.isBlank(goDaddyConfig.getApiSecret())) {
-                    goDaddyConfig.setApiSecret(value);
-                }
-                configuration.setProviderSpecific(goDaddyConfig);
-            }
         }
     }
 
@@ -157,10 +99,8 @@ public class ConfConfigurationReader extends AbstractConfigurationReader impleme
 
         String[] lines = config.split("\n");
         ApplicationConfiguration configuration = new ApplicationConfiguration();
-        Arrays.stream(lines).forEachOrdered(line -> {
-            readBasicConfig(line, configuration);
-            readSpecificConfig(line, configuration);
-        });
+        Arrays.stream(lines).forEachOrdered(line ->
+                readBasicConfig(line, configuration));
 
         validate(configuration);
         return Optional.of(configuration);

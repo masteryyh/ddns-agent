@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import win.minaandyyh.ddnsagent.base.constant.ConfigurationConstants;
 import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 
 /**
@@ -29,11 +30,11 @@ public class AliyunConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.aliyun.access-key-id")) {
+        if (StringUtils.equals(key, ConfigurationConstants.ALIYUN_ACCESS_KEY_ID)) {
             this.accessKeyId = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.aliyun.access-key-secret")) {
+        if (StringUtils.equals(key, ConfigurationConstants.ALIYUN_ACCESS_KEY_SECRET)) {
             this.accessKeySecret = value;
         }
     }

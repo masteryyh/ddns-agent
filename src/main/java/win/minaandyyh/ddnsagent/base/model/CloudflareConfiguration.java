@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import win.minaandyyh.ddnsagent.base.constant.ConfigurationConstants;
 import win.minaandyyh.ddnsagent.base.constant.PatternConstants;
 
 /**
@@ -30,11 +31,11 @@ public class CloudflareConfiguration implements ProviderConfiguration {
             return;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.cloudflare.auth-key")) {
+        if (StringUtils.equals(key, ConfigurationConstants.CLOUDFLARE_AUTH_KEY)) {
             this.authKey = value;
         }
 
-        if (StringUtils.equals(key, "ddns.provider-specific.cloudflare.auth-email")) {
+        if (StringUtils.equals(key, ConfigurationConstants.CLOUDFLARE_AUTH_EMAIL)) {
             this.authEmail = value;
         }
     }

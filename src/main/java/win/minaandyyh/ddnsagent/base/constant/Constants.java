@@ -15,4 +15,8 @@ public class Constants {
     public static final String DEFAULT_CONFIG_LOCATION_WINDOWS = "%APPDATA%\\ddns\\config.json";
 
     public static final String DDNS_TEST = "DDNS_TEST";
+
+    public static final String EQUAL = "=";
+
+    public static final String USER_AGENT = "ddns-agent/1.0(yyh991013@163.com)";
 }
