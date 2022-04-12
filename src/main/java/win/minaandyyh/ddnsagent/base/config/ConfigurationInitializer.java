@@ -2,11 +2,8 @@ package win.minaandyyh.ddnsagent.base.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
 import win.minaandyyh.ddnsagent.base.constant.Constants;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
 import win.minaandyyh.ddnsagent.base.util.config.ConfigurationReader;
@@ -21,7 +18,7 @@ import java.util.Map;
  *
  * @author masteryyh
  */
-@Configuration
+//@Configuration
 public class ConfigurationInitializer {
     private final Map<String, ConfigurationReader> readers;
 

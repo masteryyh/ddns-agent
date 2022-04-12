@@ -1,6 +1,7 @@
 package win.minaandyyh.ddnsagent;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.Application;
 
 /**

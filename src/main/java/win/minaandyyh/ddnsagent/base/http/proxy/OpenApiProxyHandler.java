@@ -1,6 +1,7 @@
 package win.minaandyyh.ddnsagent.base.http.proxy;
 
 
+import lombok.extern.slf4j.Slf4j;
 import win.minaandyyh.ddnsagent.base.http.annotations.api.Api;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
 import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
 /**
  * @author 22454
  */
+@Slf4j
 public class OpenApiProxyHandler implements InvocationHandler {
     private final RequestHandlerFactory requestHandlerFactory;
 
@@ -26,7 +28,7 @@ public class OpenApiProxyHandler implements InvocationHandler {
         try {
             return handle(method, args);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("failed to handle request,Cause: ", e);
             throw HttpException.of(String.format("RequestClient invoke < %s > failed.", method.getName()));
         }
     }
