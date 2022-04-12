@@ -9,7 +9,6 @@ import win.minaandyyh.ddnsagent.base.Application;
  *
  * @author masteryyh
  */
-@Component
 @ComponentScan(basePackages = "win.minaandyyh.ddnsagent")
 public class Main {
     public static void main(String[] args) {
