@@ -45,7 +45,8 @@ public class ConfConfigurationReaderTest extends AbstractTestNGSpringContextTest
                 .append("ddns.interval=4").append("\n")
                 .append("ddns.provider=ALIYUN").append("\n")
                 .append("ddns.provider-specific.aliyun.access-key-id=aBcD123EfGUAs9dnB2fFg1DD").append("\n")
-                .append("ddns.provider-specific.aliyun.access-key-secret=aBcD123EfGUAs9dnB2fFg1DDsh38fh").append("\n");
+                .append("ddns.provider-specific.aliyun.access-key-secret=aBcD123EfGUAs9dnB2fFg1DDsh38fh").append("\n")
+                .append("ddns.provider-specific.aliyun.record-id=9999998").append("\n");
         Files.writeString(Paths.get("config.conf"), builder1);
 
         ApplicationConfiguration configuration1 = new ApplicationConfiguration();
@@ -57,6 +58,7 @@ public class ConfConfigurationReaderTest extends AbstractTestNGSpringContextTest
         AliyunConfiguration aliyun1 = new AliyunConfiguration();
         aliyun1.setAccessKeyId("aBcD123EfGUAs9dnB2fFg1DD");
         aliyun1.setAccessKeySecret("aBcD123EfGUAs9dnB2fFg1DDsh38fh");
+        aliyun1.setRecordId("9999998");
         configuration1.setProviderSpecific(aliyun1);
         testCases.add(configuration1);
     }

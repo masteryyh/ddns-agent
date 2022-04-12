@@ -12,6 +12,8 @@ public class PatternConstants {
 
     public static final String ALIYUN_ACCESS_KEY_SECRET = "^[A-Za-z\\d]{30}$";
 
+    public static final String ALIYUN_RECORD_ID = "^\\d{7}$";
+
     public static final String CLOUDFLARE_AUTH_KEY = "^[a-z\\d]{37}$";
 
     public static final String DNSPOD_SECRET_ID = "^AKID[A-Za-z\\d]{32}$";
