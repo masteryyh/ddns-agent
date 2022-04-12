@@ -22,11 +22,9 @@ import java.util.Map;
  * @author masteryyh
  */
 @Configuration
-@ComponentScan(basePackages = "win.minaandyyh.ddnsagent")
 public class ConfigurationInitializer {
     private final Map<String, ConfigurationReader> readers;
 
-    @Autowired
     public ConfigurationInitializer(Map<String, ConfigurationReader> readers) {
         this.readers = readers;
     }
