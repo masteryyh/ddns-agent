@@ -30,8 +30,6 @@ public class ConfigurationConstants {
 
     public static final String ALIYUN_ACCESS_KEY_SECRET = "ddns.provider-specific.aliyun.access-key-secret";
 
-    public static final String ALIYUN_RECORD_ID = "ddns.provider-specific.aliyun.record-id";
-
     public static final String CLOUDFLARE_AUTH_KEY = "ddns.provider-specific.cloudflare.auth-key";
 
     public static final String CLOUDFLARE_AUTH_EMAIL = "ddns.provider-specific.cloudflare.auth-email";
