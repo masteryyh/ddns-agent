@@ -1,15 +1,10 @@
 package win.minaandyyh.ddnsagent.base.http.resp;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 /**
+ * HTTP response information (immutable)
+ *
  * @author 22454
+ * @author masteryyh
  */
-@Data
-@Accessors(chain = true)
-public class ApiResponse {
-    private String httpStatus;
-    private String message;
-    private String body;
+public record ApiResponse(Integer httpStatus, String message, String body) {
 }
