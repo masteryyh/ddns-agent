@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("io.freefair.lombok") version "6.4.3"
 }
 
 group = "win.minaandyyh"
@@ -22,26 +23,19 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
     implementation("com.google.guava:guava:31.1-jre")
-    compileOnly("org.projectlombok:lombok:1.18.22")
-    annotationProcessor("org.projectlombok:lombok:1.18.22")
-    testCompileOnly("org.projectlombok:lombok:1.18.22")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
+    compileOnly("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    testCompileOnly("org.projectlombok:lombok:1.18.24")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
     implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("org.hibernate.validator:hibernate-validator:7.0.4.Final")
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("org.apache.tomcat.embed:tomcat-embed-el:10.0.20")
 
     // Dependency Injection
-    implementation("org.springframework:spring-context:5.3.18")
-    implementation("org.springframework:spring-core:5.3.18")
-    implementation("org.springframework:spring-beans:5.3.18")
-
-    // JDBC drivers and connection pool
-    // Commented out for future feature
-//    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
-//    implementation("org.postgresql:postgresql:42.3.3")
-//    implementation("mysql:mysql-connector-java:8.0.28")
-//    implementation("hikari-cp:hikari-cp:2.13.0")
+    implementation("org.springframework:spring-context:5.3.19")
+    implementation("org.springframework:spring-core:5.3.19")
+    implementation("org.springframework:spring-beans:5.3.19")
 
     // Logging
     implementation("org.apache.logging.log4j:log4j-core:2.17.2")
@@ -53,7 +47,7 @@ dependencies {
 
     // Test framework
     testImplementation("org.testng:testng:7.5")
-    testImplementation("org.springframework:spring-test:5.3.18")
+    testImplementation("org.springframework:spring-test:5.3.19")
 }
 
 tasks.getByName<Test>("test") {
