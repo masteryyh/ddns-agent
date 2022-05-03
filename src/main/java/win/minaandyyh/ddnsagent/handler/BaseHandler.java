@@ -31,6 +31,4 @@ public abstract class BaseHandler implements Handler {
         log.info("Current IP address: {}", ip);
         return ip;
     }
-
-    public abstract void handle() throws Exception;
 }
