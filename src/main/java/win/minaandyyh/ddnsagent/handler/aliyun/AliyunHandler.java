@@ -2,18 +2,17 @@ package win.minaandyyh.ddnsagent.handler.aliyun;
 
 import cn.hutool.crypto.SecureUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import win.minaandyyh.ddnsagent.base.constant.Constants;
-import win.minaandyyh.ddnsagent.base.constant.RequestConstants;
 import win.minaandyyh.ddnsagent.base.errors.ApplicationException;
 import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 import win.minaandyyh.ddnsagent.base.model.AliyunConfiguration;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
-import win.minaandyyh.ddnsagent.base.util.DateTimeUtils;
 import win.minaandyyh.ddnsagent.base.util.MyStringUtils;
 import win.minaandyyh.ddnsagent.handler.BaseHandler;
 import win.minaandyyh.ddnsagent.handler.Handler;
@@ -25,7 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Aliyun update handler.
@@ -63,23 +61,20 @@ public class AliyunHandler extends BaseHandler implements Handler {
         canonicalQueryPart.putAll(params);
         canonicalQueryPart.putAll(body);
         String signature = sign(type, MyStringUtils.httpParamToString(canonicalQueryPart), secret);
-        params.put("Signature", signature);
+        params.put(Constants.SIGNATURE, signature);
     }
 
     private AliyunRecordGetResponse currentRecords() throws JsonProcessingException {
         String accessKeyId = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeyId();
         String accessKeySecret = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeySecret();
 
-        Map<String, Object> params = new LinkedHashMap<>(RequestConstants.ALIYUN_PARAMS);
-        params.put("Action", "DescribeDomainRecords");
-        params.put("AccessKeyId", accessKeyId);
-        params.put("SignatureNonce", UUID.randomUUID().toString());
-        params.put("Timestamp", DateTimeUtils.getUTCString());
-        params.put("DomainName", configuration.getDomain());
-        params.put("RRKeyWord", configuration.getSubDomain());
-        params.put("Type", "A");
-        params.put("Status", "Enable");
-        params.put("SearchMode", "ADVANCED");
+        DescribeDomainRecordsParams paramObj = DescribeDomainRecordsParams.builder()
+                .action(Constants.DESCRIBE_DOMAIN_RECORDS)
+                .accessKeyId(accessKeyId)
+                .domainName(configuration.getDomain())
+                .rrKeyword(configuration.getSubDomain())
+                .build();
+        Map<String, Object> params = mapper.convertValue(paramObj, new TypeReference<>() {});
 
         fillInSignature(params, Collections.emptyMap(), accessKeySecret, RequestType.GET);
         ApiResponse response = aliyunApi.get(Collections.emptyMap(), params, Collections.emptyMap());
@@ -91,17 +86,18 @@ public class AliyunHandler extends BaseHandler implements Handler {
         String accessKeyId = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeyId();
         String accessKeySecret = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeySecret();
 
-        Map<String, Object> params = new LinkedHashMap<>(RequestConstants.ALIYUN_PARAMS);
-        params.put("Action", "AddDomainRecord");
-        params.put("AccessKeyId", accessKeyId);
-        params.put("SignatureNonce", UUID.randomUUID().toString());
-        params.put("Timestamp", DateTimeUtils.getUTCString());
+        BaseAliyunParams paramObj = BaseAliyunParams.builder()
+                .accessKeyId(accessKeyId)
+                .action(Constants.ADD_DOMAIN_RECORD)
+                .build();
+        Map<String, Object> params = mapper.convertValue(paramObj, new TypeReference<>() {});
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("DomainName", configuration.getDomain());
-        body.put("RR", configuration.getSubDomain());
-        body.put("Type", "A");
-        body.put("Value", currentIP);
+        AddDomainRecordBody bodyObj = AddDomainRecordBody.builder()
+                .domainName(configuration.getDomain())
+                .rr(configuration.getSubDomain())
+                .value(currentIP)
+                .build();
+        Map<String, Object> body = mapper.convertValue(bodyObj, new TypeReference<>() {});
 
         fillInSignature(params, body, accessKeySecret, RequestType.POST);
         ApiResponse response = aliyunApi.update(Map.of("Content-Type", "application/x-www-form-urlencoded"), params, body);
@@ -119,17 +115,18 @@ public class AliyunHandler extends BaseHandler implements Handler {
         String accessKeyId = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeyId();
         String accessKeySecret = ((AliyunConfiguration) configuration.getProviderSpecific()).getAccessKeySecret();
 
-        Map<String, Object> params = new LinkedHashMap<>(RequestConstants.ALIYUN_PARAMS);
-        params.put("Action", "UpdateDomainRecord");
-        params.put("AccessKeyId", accessKeyId);
-        params.put("SignatureNonce", UUID.randomUUID().toString());
-        params.put("Timestamp", DateTimeUtils.getUTCString());
+        BaseAliyunParams paramObj = BaseAliyunParams.builder()
+                .accessKeyId(accessKeyId)
+                .action(Constants.UPDATE_DOMAIN_RECORD)
+                .build();
+        Map<String, Object> params = mapper.convertValue(paramObj, new TypeReference<>() {});
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("RecordId", id);
-        body.put("RR", configuration.getSubDomain());
-        body.put("Type", "A");
-        body.put("Value", currentIP);
+        UpdateDomainRecordBody bodyObj = UpdateDomainRecordBody.builder()
+                .recordId(id)
+                .rr(configuration.getSubDomain())
+                .value(currentIP)
+                .build();
+        Map<String, Object> body = mapper.convertValue(bodyObj, new TypeReference<>() {});
 
         fillInSignature(params, body, accessKeySecret, RequestType.POST);
         ApiResponse response = aliyunApi.update(Map.of("Content-Type", "application/x-www-form-urlencoded"), params, body);
