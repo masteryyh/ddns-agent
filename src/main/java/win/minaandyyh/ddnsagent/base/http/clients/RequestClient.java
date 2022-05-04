@@ -5,6 +5,7 @@ import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 /**
@@ -220,9 +221,11 @@ public abstract class RequestClient {
             return url;
         }
 
-        return url + params.entrySet().stream()
-                .map(entry -> entry.getKey() + "=" + entry.getValue().toString())
-                .collect(Collectors.joining("&", "?", ""));
+        StringJoiner joiner = new StringJoiner("&", "?", "");
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            joiner.add(entry.getKey() + "=" + entry.getValue().toString());
+        }
+        return joiner.toString();
     }
 
 }

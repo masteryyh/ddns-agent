@@ -5,20 +5,17 @@ import org.apache.commons.lang3.StringUtils;
 import win.minaandyyh.ddnsagent.base.constant.Constants;
 
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.AbstractMap;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * My additional utilities about {@link String}.
+ * My additional utilities about string literals in HTTP.
  *
  * @author masteryyh
  */
-public class MyStringUtils {
-    private MyStringUtils() {}
+public class MyHttpEncodeUtils {
+    private MyHttpEncodeUtils() {}
 
     /**
      * Encode specific plain string into application/x-www-form-urlencoded format using UTF-8.

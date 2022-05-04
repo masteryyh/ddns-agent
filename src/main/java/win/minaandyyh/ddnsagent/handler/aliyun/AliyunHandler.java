@@ -13,7 +13,7 @@ import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 import win.minaandyyh.ddnsagent.base.model.AliyunConfiguration;
 import win.minaandyyh.ddnsagent.base.model.ApplicationConfiguration;
-import win.minaandyyh.ddnsagent.base.util.MyStringUtils;
+import win.minaandyyh.ddnsagent.base.util.MyHttpEncodeUtils;
 import win.minaandyyh.ddnsagent.handler.BaseHandler;
 import win.minaandyyh.ddnsagent.handler.Handler;
 import win.minaandyyh.ddnsagent.handler.PublicIPApi;
@@ -49,8 +49,8 @@ public class AliyunHandler extends BaseHandler implements Handler {
 
     private String sign(RequestType type, String queryString, String secret) {
         String plaintext = type.name() + Constants.AND +
-                MyStringUtils.urlEncode("/") + Constants.AND +
-                MyStringUtils.urlEncode(queryString);
+                MyHttpEncodeUtils.urlEncode("/") + Constants.AND +
+                MyHttpEncodeUtils.urlEncode(queryString);
 
         return SecureUtil.hmacSha1(secret)
                 .digestBase64(plaintext, StandardCharsets.UTF_8, false);
@@ -60,7 +60,7 @@ public class AliyunHandler extends BaseHandler implements Handler {
         Map<String, Object> canonicalQueryPart = new LinkedHashMap<>();
         canonicalQueryPart.putAll(params);
         canonicalQueryPart.putAll(body);
-        String signature = sign(type, MyStringUtils.httpParamToString(canonicalQueryPart), secret);
+        String signature = sign(type, MyHttpEncodeUtils.httpParamToString(canonicalQueryPart), secret);
         params.put(Constants.SIGNATURE, signature);
     }
 
