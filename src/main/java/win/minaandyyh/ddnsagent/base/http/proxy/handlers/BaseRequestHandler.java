@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static win.minaandyyh.ddnsagent.base.http.constants.HttpConstants.*;
+import static win.minaandyyh.ddnsagent.base.constant.HttpConstants.*;
 
 /**
  * @author 22454

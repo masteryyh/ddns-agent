@@ -5,6 +5,8 @@ import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /**
  * @author 22454
@@ -214,14 +216,16 @@ public abstract class RequestClient {
                                        Map<String, Object> params,
                                        Map<String, Object> payload);
 
-    protected String buildQueryParams(Map<String, Object> params) {
+    protected String buildUrl(String url, Map<String, Object> params) {
         if (MapUtils.isEmpty(params)) {
-            return "";
+            return url;
         }
-        final StringBuilder urlBuilder = new StringBuilder();
-        params.forEach((k, v) -> urlBuilder.append(k).append("=").append(v).append("&"));
-        int length = urlBuilder.length();
-        return urlBuilder.deleteCharAt(length - 1).toString();
+
+        StringJoiner joiner = new StringJoiner("&", "?", "");
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            joiner.add(entry.getKey() + "=" + entry.getValue().toString());
+        }
+        return joiner.toString();
     }
 
 }

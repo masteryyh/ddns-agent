@@ -1,4 +1,4 @@
-package win.minaandyyh.ddnsagent.base.http.constants;
+package win.minaandyyh.ddnsagent.base.constant;
 
 /**
  * http constants
@@ -10,6 +10,8 @@ public class HttpConstants {
     }
 
     public static final String HEADER = "header";
+
     public static final String PARAMS = "params";
+
     public static final String PAYLOAD = "payload";
 }

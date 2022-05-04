@@ -6,10 +6,13 @@ import okhttp3.*;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
 import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
+import win.minaandyyh.ddnsagent.base.http.enums.BodyType;
+import win.minaandyyh.ddnsagent.base.http.errors.HttpException;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author 22454
@@ -31,16 +34,11 @@ public class OkHttpRequestClient extends RequestClient {
                            Map<String, String> header,
                            Map<String, Object> params,
                            Map<String, Object> payload) {
-        String queryParams = MapUtils.isEmpty(params) ? "" : buildQueryParams(params);
-        if (queryParams.trim().length() > 0) {
-            url = url.concat("?").concat(queryParams);
-        }
-
         Request.Builder builder = new Request.Builder()
-                .url(url)
+                .url(buildUrl(url, params))
                 .get();
 
-        if (!MapUtils.isEmpty(header)) {
+        if (MapUtils.isNotEmpty(header)) {
             Headers headers = Headers.of(header);
             builder.headers(headers);
         }
@@ -54,32 +52,18 @@ public class OkHttpRequestClient extends RequestClient {
                             Map<String, String> header,
                             Map<String, Object> params,
                             Map<String, Object> payload) {
-
-
-        String queryParams = MapUtils.isEmpty(params) ? "" : buildQueryParams(params);
-        if (queryParams.trim().length() > 0) {
-            url = url.concat("?").concat(queryParams);
-        }
-
-        String json = "";
-        try {
-            json = mapper.writeValueAsString(payload);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        RequestBody requestBody = RequestBody.create(
-                json,
-                MediaType.parse("application/json;charset=utf-8")
-        );
-
         Request.Builder builder = new Request.Builder()
-                .url(url)
-                .post(requestBody);
+                .url(buildUrl(url, params));
 
         if (MapUtils.isNotEmpty(header)) {
+            String contentType = header.get("Content-Type");
+            BodyType type = Objects.isNull(contentType) ? BodyType.JSON : BodyType.parseValue(contentType);
+            builder.post(buildBody(payload, type));
+
             Headers headers = Headers.of(header);
             builder.headers(headers);
         }
+
         final Request request = builder
                 .build();
         return call(request);
@@ -90,8 +74,21 @@ public class OkHttpRequestClient extends RequestClient {
                            Map<String, String> header,
                            Map<String, Object> params,
                            Map<String, Object> payload) {
-        // TODO still under construction
-        return null;
+        Request.Builder builder = new Request.Builder()
+                .url(buildUrl(url, params));
+
+        if (MapUtils.isNotEmpty(header)) {
+            String contentType = header.get("Content-Type");
+            BodyType type = Objects.isNull(contentType) ? BodyType.JSON : BodyType.parseValue(contentType);
+            builder.put(buildBody(payload, type));
+
+            Headers headers = Headers.of(header);
+            builder.headers(headers);
+        }
+
+        final Request request = builder
+                .build();
+        return call(request);
     }
 
     @Override
@@ -99,20 +96,60 @@ public class OkHttpRequestClient extends RequestClient {
                               Map<String, String> header,
                               Map<String, Object> params,
                               Map<String, Object> payload) {
-        // TODO still under construction
-        return null;
+        Request.Builder builder = new Request.Builder()
+                .url(buildUrl(url, params));
+
+        if (MapUtils.isNotEmpty(header)) {
+            if (MapUtils.isNotEmpty(payload)) {
+                String contentType = header.get("Content-Type");
+                BodyType type = Objects.isNull(contentType) ? BodyType.JSON : BodyType.parseValue(contentType);
+                builder.delete(buildBody(payload, type));
+            } else {
+                builder.delete();
+            }
+
+            Headers headers = Headers.of(header);
+            builder.headers(headers);
+        }
+
+        final Request request = builder
+                .build();
+        return call(request);
     }
 
     private ApiResponse call(Request request) {
-        ApiResponse response = new ApiResponse();
         Call call = okHttpClient.newCall(request);
         try (Response resp = call.execute()) {
-            response.setHttpStatus(String.valueOf(resp.code()))
-                    .setMessage(resp.message())
-                    .setBody(resp.body().string());
+            return new ApiResponse(resp.code(), resp.message(),
+                    Objects.isNull(resp.body()) ? "" : resp.body().string());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw HttpException.of(e);
         }
-        return response;
+    }
+
+    private RequestBody buildBody(Map<String, Object> payload, BodyType type) {
+        if (Objects.isNull(type)) {
+            throw HttpException.of("Must indicate request body type when building request body.");
+        }
+
+        if (MapUtils.isEmpty(payload)) {
+            return RequestBody.create("", MediaType.parse(type.getValue()));
+        }
+
+        if (type.equals(BodyType.X_WWW_FORM_URLENCODED)) {
+            FormBody.Builder builder = new FormBody.Builder();
+            payload.forEach((key, value) -> builder.addEncoded(key, value.toString()));
+            return builder.build();
+        }
+
+        String json;
+        try {
+            json = mapper.writeValueAsString(payload);
+        } catch (JsonProcessingException e) {
+            throw HttpException.of(e);
+        }
+
+        MediaType mediaType = MediaType.parse("application/json;charset=utf8");
+        return RequestBody.create(json, mediaType);
     }
 }

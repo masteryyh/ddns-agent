@@ -19,4 +19,16 @@ public class Constants {
     public static final String EQUAL = "=";
 
     public static final String USER_AGENT = "ddns-agent/1.0(yyh991013@163.com)";
+
+    public static final String EMPTY_STRING = "";
+
+    public static final String AND = "&";
+
+    public static final String SIGNATURE = "Signature";
+
+    public static final String DESCRIBE_DOMAIN_RECORDS = "DescribeDomainRecords";
+
+    public static final String ADD_DOMAIN_RECORD = "AddDomainRecord";
+
+    public static final String UPDATE_DOMAIN_RECORD = "UpdateDomainRecord";
 }

@@ -24,10 +24,6 @@ public class AliyunConfiguration implements ProviderConfiguration {
     @Pattern(regexp = PatternConstants.ALIYUN_ACCESS_KEY_SECRET, message = "accessKeyId must meet the regex: ^[A-Za-z\\d]{30}$")
     private String accessKeySecret;
 
-    @NotBlank(message = "missing RecordId or it's empty")
-    @Pattern(regexp = PatternConstants.ALIYUN_RECORD_ID, message = "recordId must meet the regex: ^\\d{7}$")
-    private String recordId;
-
     @Override
     public void setValue(String key, String value) {
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
@@ -40,10 +36,6 @@ public class AliyunConfiguration implements ProviderConfiguration {
 
         if (StringUtils.equals(key, ConfigurationConstants.ALIYUN_ACCESS_KEY_SECRET)) {
             this.accessKeySecret = value;
-        }
-
-        if (StringUtils.equals(key, ConfigurationConstants.ALIYUN_RECORD_ID)) {
-            this.recordId = value;
         }
     }
 }
