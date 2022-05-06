@@ -11,6 +11,7 @@ import win.minaandyyh.ddnsagent.base.http.enums.RequestType;
 import win.minaandyyh.ddnsagent.base.http.clients.RequestClient;
 import win.minaandyyh.ddnsagent.base.http.errors.HttpException;
 import win.minaandyyh.ddnsagent.base.http.resp.ApiResponse;
+import win.minaandyyh.ddnsagent.base.util.MyHttpEncodeUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -115,7 +116,7 @@ public abstract class BaseRequestHandler {
         String processed = original;
         for (Map.Entry<String, Object> variable : variables.entrySet()) {
             String name = variable.getKey();
-            String value = variable.getValue().toString();
+            String value = MyHttpEncodeUtils.urlEncode(variable.getValue().toString());
             processed = processed.replaceAll("\\{" + name + "}", value);
         }
 
