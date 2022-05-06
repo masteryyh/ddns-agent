@@ -14,6 +14,8 @@ public class PatternConstants {
 
     public static final String CLOUDFLARE_AUTH_KEY = "^[a-z\\d]{37}$";
 
+    public static final String CLOUDFLARE_ZONE_ID = "^[a-z\\d]{32}$";
+
     public static final String DNSPOD_SECRET_ID = "^AKID[A-Za-z\\d]{32}$";
 
     public static final String DNSPOD_SECRET_KEY = "^[A-Za-z\\d]{32}$";

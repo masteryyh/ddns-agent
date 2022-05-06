@@ -25,6 +25,10 @@ public class CloudflareConfiguration implements ProviderConfiguration {
     @Email(message = "authEmail must be a valid email address")
     private String authEmail;
 
+    @NotBlank(message = "missing zoneId or it's empty")
+    @Pattern(regexp = PatternConstants.CLOUDFLARE_ZONE_ID, message = "Cloudflare DNS zone id must meet regex: ^[a-z\\d]{32}$")
+    private String zoneId;
+
     @Override
     public void setValue(String key, String value) {
         if (StringUtils.isBlank(key) || StringUtils.isBlank(value)) {
@@ -37,6 +41,10 @@ public class CloudflareConfiguration implements ProviderConfiguration {
 
         if (StringUtils.equals(key, ConfigurationConstants.CLOUDFLARE_AUTH_EMAIL)) {
             this.authEmail = value;
+        }
+
+        if (StringUtils.equals(key, ConfigurationConstants.CLOUDFLARE_ZONE_ID)) {
+            this.zoneId = value;
         }
     }
 }

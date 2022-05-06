@@ -34,6 +34,8 @@ public class ConfigurationConstants {
 
     public static final String CLOUDFLARE_AUTH_EMAIL = "ddns.provider-specific.cloudflare.auth-email";
 
+    public static final String CLOUDFLARE_ZONE_ID = "ddns.provider-specific.cloudflare.zone-id";
+
     public static final String DNSPOD_SECRET_ID = "ddns.provider-specific.dnspod.secret-id";
 
     public static final String DNSPOD_SECRET_KEY = "ddns.provider-specific.dnspod.secret-key";
